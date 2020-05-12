@@ -35,7 +35,7 @@ class BinaryTreeNode(object):
         elif self.right == None:
             return self.left.height() + 1
         else:
-            return max(self.right.height(), self.left.height()) + 1
+            return max(self.left.height(), self.right.height()) + 1
 
 
 class BinarySearchTree(object):
@@ -116,18 +116,20 @@ class BinarySearchTree(object):
         node = self.root
         # Loop until we descend past the closest leaf node
         while node is not None:
-            # TODO: Check if the given item matches the node's data
-            if ...:
+            # Check if the given item matches the node's data
+            if item == node.data:
                 # Return the found node
                 return node
-            # TODO: Check if the given item is less than the node's data
-            elif ...:
-                # TODO: Descend to the node's left child
-                node = ...
-            # TODO: Check if the given item is greater than the node's data
-            elif ...:
-                # TODO: Descend to the node's right child
-                node = ...
+            # Check if the given item is less than the node's data
+            elif item < node.data:
+                # Descend to the node's left child
+                if node.left is not None:
+                    node = node.left
+            # Check if the given item is greater than the node's data
+            elif item > node.data:
+                # Descend to the node's right child
+                if node.right is not None:
+                    node = node.right
         # Not found
         return None
 
@@ -170,20 +172,20 @@ class BinarySearchTree(object):
         parent = None
         # Loop until we descend past the closest leaf node
         while node is not None:
-            # TODO: Check if the given item matches the node's data
-            if item == node.data: # ??
+            # Check if the given item matches the node's data
+            if item == node.data:
                 # Return the parent of the found node
-                return parent  # ??
-            # TODO: Check if the given item is less than the node's data
-            elif item < node.data: # ??
-                # TODO: Update the parent and descend to the node's left child
-                parent = node # ??
-                node = node.left # ??
-            # TODO: Check if the given item is greater than the node's data
-            elif item > node.data: # ??
-                # TODO: Update the parent and descend to the node's right child
-                parent = node # ??
-                node = node.right # ??
+                return parent 
+            # Check if the given item is less than the node's data
+            elif item < node.data:
+                #  Update the parent and descend to the node's left child
+                parent = node
+                node = node.left
+            # Check if the given item is greater than the node's data
+            elif item > node.data:
+                # Update the parent and descend to the node's right child
+                parent = node
+                node = node.right
         # Not found
         return parent
 
@@ -272,7 +274,6 @@ class BinarySearchTree(object):
             self._traverse_pre_order_recursive(node.left, visit)
         # Traverse right subtree, if it exists
             self._traverse_pre_order_recursive(node.right, visit)
-        ...
 
     def _traverse_pre_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative pre-order traversal (DFS).
@@ -324,20 +325,20 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Create queue to store nodes not yet traversed in level-order
+        # Create queue to store nodes not yet traversed in level-order
         queue = Queue()
-        # TODO: Enqueue given starting node
+        # Enqueue given starting node
         queue.enqueue(start_node)
-        # TODO: Loop until queue is empty
+        # Loop until queue is empty
         while not queue.is_empty():
-            # TODO: Dequeue node at front of queue
+            # Dequeue node at front of queue
             node = queue.dequeue()
-            # TODO: Visit this node's data with given function
+            # Visit this node's data with given function
             visit(node.data)
-            # TODO: Enqueue this node's left child, if it exists
+            # Enqueue this node's left child, if it exists
             if node.left is not None:
                 queue.enqueue(node.left)
-            # TODO: Enqueue this node's right child, if it exists
+            # Enqueue this node's right child, if it exists
             if node.right is not None:
                 queue.enqueue(node.right)
 
