@@ -1,4 +1,5 @@
 #!python
+from queue import Queue
 
 
 class BinaryTreeNode(object):
@@ -94,14 +95,14 @@ class BinarySearchTree(object):
             return
         # Find the parent node of where the given item should be inserted
         parent = self._find_parent_node_recursive(item, self.root)
-        # TODO: Check if the given item should be inserted left of parent node
-        if item < parent.data: # ??
-            # TODO: Create a new node and set the parent's left child
-            parent.left = item # ??
-        # TODO: Check if the given item should be inserted right of parent node
-        elif item > parent.data: # ??
-            # TODO: Create a new node and set the parent's right child
-            parent.right = item # ??
+        # Check if the given item should be inserted left of parent node
+        if item < parent.data: 
+            # Create a new node and set the parent's left child
+            parent.left = BinaryTreeNode(item) 
+        # Check if the given item should be inserted right of parent node
+        elif item > parent.data: 
+            # Create a new node and set the parent's right child
+            parent.right = BinaryTreeNode(item)
         # Increase the tree size
         self.size += 1
 
@@ -324,19 +325,21 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # TODO: Create queue to store nodes not yet traversed in level-order
-        queue = ...
+        queue = Queue()
         # TODO: Enqueue given starting node
-        ...
+        queue.enqueue(start_node)
         # TODO: Loop until queue is empty
-        while ...:
+        while not queue.is_empty():
             # TODO: Dequeue node at front of queue
-            node = ...
+            node = queue.dequeue()
             # TODO: Visit this node's data with given function
-            ...
+            visit(node.data)
             # TODO: Enqueue this node's left child, if it exists
-            ...
+            if node.left is not None:
+                queue.enqueue(node.left)
             # TODO: Enqueue this node's right child, if it exists
-            ...
+            if node.right is not None:
+                queue.enqueue(node.right)
 
 
 def test_binary_search_tree():
